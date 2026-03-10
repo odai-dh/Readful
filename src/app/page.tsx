@@ -60,7 +60,8 @@ export default function Home() {
     const params = new URLSearchParams({ category });
     if (subFilter) params.set('sub', subFilter);
 
-    fetch(`/api/news?${params}`)
+    const apiPath = category === 'NYT' ? '/api/nyt' : '/api/news';
+    fetch(`${apiPath}?${params}`)
       .then((res) => res.json())
       .then((data: { articles?: Article[]; error?: string }) => {
         if (data.error) throw new Error(data.error);

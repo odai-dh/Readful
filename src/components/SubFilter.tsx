@@ -31,13 +31,30 @@ const NEWS_CHANNELS = [
   { label: 'talkSPORT', value: 'talksport' },
 ];
 
+const NYT_SECTIONS = [
+  { label: 'Top Stories', value: 'Home' },
+  { label: 'World',       value: 'World' },
+  { label: 'US',          value: 'US' },
+  { label: 'Politics',    value: 'Politics' },
+  { label: 'Technology',  value: 'Technology' },
+  { label: 'Science',     value: 'Science' },
+  { label: 'Health',      value: 'Health' },
+  { label: 'Business',    value: 'Business' },
+  { label: 'Sports',      value: 'Sports' },
+  { label: 'Food',        value: 'Food' },
+  { label: 'Arts',        value: 'Arts' },
+  { label: 'Opinion',     value: 'Opinion' },
+];
+
 const OPTIONS: Record<string, { label: string; value: string }[]> = {
   Football: FOOTBALL_CLUBS,
   Channels: NEWS_CHANNELS,
+  NYT:      NYT_SECTIONS,
 };
 
 export function getDefaultSub(category: string): string {
   if (category === 'Channels') return 'al-jazeera-english';
+  if (category === 'NYT') return 'Home';
   return '';
 }
 

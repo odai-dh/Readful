@@ -10,10 +10,12 @@ export type Category =
   | 'Politics'
   | 'Climate'
   | 'Food'
-  | 'Channels';
+  | 'Channels'
+  | 'NYT';
 
 export const CATEGORIES: Category[] = [
   'All',
+  'NYT',
   'Football',
   'Channels',
   'AI',
