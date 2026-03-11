@@ -11,7 +11,7 @@ function buildUrl(category: string, sub: string): string {
       if (sub) {
         return `${BASE}/everything?q="${encodeURIComponent(sub)}"+football&sortBy=publishedAt&pageSize=40&language=en&apiKey=${key}`;
       }
-      return `${BASE}/everything?q=football+soccer+UEFA+"Premier+League"+"Champions+League"+"La+Liga"+"Serie+A"+"Bundesliga"&sortBy=publishedAt&pageSize=40&language=en&apiKey=${key}`;
+      return `${BASE}/everything?q="Premier League" OR "Champions League" OR "La Liga" OR "Serie A" OR "Bundesliga" OR "Ligue 1" OR UEFA OR football&sortBy=publishedAt&pageSize=40&language=en&apiKey=${key}`;
     case 'Channels':
       return `${BASE}/top-headlines?sources=${sub || 'al-jazeera-english'}&pageSize=40&apiKey=${key}`;
     case 'AI':
