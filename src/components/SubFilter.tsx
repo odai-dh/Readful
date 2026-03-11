@@ -51,7 +51,7 @@ const BREAKING_SOURCES = [
   { label: 'Al Jazeera', value: 'aljazeera' },
   { label: 'Guardian',   value: 'guardian' },
   { label: 'NYT',        value: 'nyt' },
-  { label: 'Reuters',    value: 'reuters' },
+  { label: 'Sky News',   value: 'skynews' },
 ];
 
 const OPTIONS: Record<string, { label: string; value: string }[]> = {

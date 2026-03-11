@@ -6,11 +6,29 @@ const SOURCES: Record<string, { name: string; url: string }> = {
   aljazeera: { name: 'Al Jazeera',    url: 'https://www.aljazeera.com/xml/rss/all.xml' },
   guardian:  { name: 'The Guardian',  url: 'https://www.theguardian.com/world/rss' },
   nyt:       { name: 'NY Times',      url: 'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml' },
-  reuters:   { name: 'Reuters',       url: 'https://feeds.reuters.com/reuters/topNews' },
+  skynews:   { name: 'Sky News',      url: 'https://feeds.skynews.com/feeds/rss/world.xml' },
 };
 
+function extractImage(item: any): string | null {
+  // media:content can be a single object or an array — pick the largest
+  const mc = item['media:content'];
+  if (Array.isArray(mc)) {
+    const sorted = [...mc].sort((a, b) => (b['@_width'] ?? 0) - (a['@_width'] ?? 0));
+    return sorted[0]?.['@_url'] ?? null;
+  }
+  return (
+    mc?.['@_url'] ??
+    item['media:thumbnail']?.['@_url'] ??
+    item.enclosure?.['@_url'] ??
+    null
+  );
+}
+
 export async function GET(request: NextRequest) {
-  const source = request.nextUrl.searchParams.get('source') || 'bbc';
+  // page.tsx sends ?sub=, legacy direct calls may send ?source=
+  const source = request.nextUrl.searchParams.get('sub')
+    ?? request.nextUrl.searchParams.get('source')
+    ?? 'bbc';
   const feed = SOURCES[source] ?? SOURCES.bbc;
 
   try {
@@ -24,18 +42,14 @@ export async function GET(request: NextRequest) {
     const items: any[] = data?.rss?.channel?.item ?? [];
 
     const articles = items.slice(0, 8).map((item: any) => ({
-      title: typeof item.title === 'object' ? item.title['#text'] : item.title ?? '',
-      url:   typeof item.link  === 'object' ? item.link['@_href']  : item.link  ?? '',
+      title:       typeof item.title === 'object' ? item.title['#text'] : item.title ?? '',
+      url:         typeof item.link  === 'object' ? item.link['@_href']  : item.link  ?? '',
       publishedAt: item.pubDate ?? item['dc:date'] ?? null,
       description: typeof item.description === 'object'
         ? item.description['#text']
         : item.description ?? null,
-      source: { name: feed.name },
-      urlToImage:
-        item['media:thumbnail']?.['@_url'] ??
-        item['media:content']?.['@_url'] ??
-        item.enclosure?.['@_url'] ??
-        null,
+      source:      { name: feed.name },
+      urlToImage:  extractImage(item),
     }));
 
     return NextResponse.json({ articles });
