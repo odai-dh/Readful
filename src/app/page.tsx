@@ -97,6 +97,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0f0f0f]">
+      {/* Breaking ticker — full width at the very top */}
+      <BreakingSection />
+
       <div className="max-w-2xl mx-auto px-4 pt-10 pb-16">
 
         {/* Header */}
@@ -106,14 +109,9 @@ export default function Home() {
         </header>
 
         {/* Sticky category bar */}
-        <div className="sticky top-0 z-10 bg-[#0f0f0f] pt-2 pb-4 -mx-4 px-4">
+        <div className="sticky top-8 z-10 bg-[#0f0f0f] pt-2 pb-4 -mx-4 px-4">
           <CategoryFilter selected={category} onChange={handleCategoryChange} />
           <SubFilter category={category} selected={subFilter} onChange={setSubFilter} />
-        </div>
-
-        {/* Breaking news */}
-        <div className="mt-4">
-          <BreakingSection />
         </div>
 
         {/* Feed */}
