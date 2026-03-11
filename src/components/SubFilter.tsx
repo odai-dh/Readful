@@ -2,6 +2,7 @@
 
 const FOOTBALL_CLUBS = [
   { label: 'All Clubs', value: '' },
+  { label: '● Live',    value: 'live' },
   { label: 'Barcelona', value: 'FC Barcelona' },
   { label: 'Real Madrid', value: 'Real Madrid' },
   { label: 'Man City', value: 'Manchester City' },

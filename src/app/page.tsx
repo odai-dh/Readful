@@ -55,6 +55,7 @@ export default function Home() {
   // Fetch articles whenever category or subFilter changes (after hydration)
   useEffect(() => {
     if (!hydrated) return;
+    if (category === 'Football' && subFilter === 'live') return;
     setLoading(true);
     setError(null);
 
@@ -111,11 +112,10 @@ export default function Home() {
           <SubFilter category={category} selected={subFilter} onChange={setSubFilter} />
         </div>
 
-        {/* Live scores — Football only */}
-        {category === 'Football' && <LiveScores />}
-
-        {/* Feed */}
-        {loading ? (
+        {/* Live scores — Football › Live sub-filter */}
+        {category === 'Football' && subFilter === 'live' ? (
+          <LiveScores />
+        ) : loading ? (
           <div className="flex flex-col gap-3 mt-2">
             {Array.from({ length: 5 }).map((_, i) => (
               <SkeletonCard key={i} />
