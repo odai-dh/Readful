@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import CategoryFilter, { CATEGORIES, type Category } from '@/components/CategoryFilter';
 import ArticleCard, { type Article } from '@/components/ArticleCard';
 import SubFilter, { getDefaultSub } from '@/components/SubFilter';
-import BreakingSection from '@/components/BreakingSection';
 
 const DAILY_CAP = 20;
 const DISMISSED_KEY = 'readful_dismissed';
@@ -61,7 +60,7 @@ export default function Home() {
     const params = new URLSearchParams({ category });
     if (subFilter) params.set('sub', subFilter);
 
-    const apiPath = category === 'NYT' ? '/api/nyt' : '/api/news';
+    const apiPath = category === 'NYT' ? '/api/nyt' : category === 'Breaking' ? '/api/breaking' : '/api/news';
     fetch(`${apiPath}?${params}`)
       .then((res) => res.json())
       .then((data: { articles?: Article[]; error?: string }) => {
@@ -97,9 +96,6 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-[#0f0f0f]">
-      {/* Breaking ticker — full width at the very top */}
-      <BreakingSection />
-
       <div className="max-w-2xl mx-auto px-4 pt-10 pb-16">
 
         {/* Header */}
@@ -109,7 +105,7 @@ export default function Home() {
         </header>
 
         {/* Sticky category bar */}
-        <div className="sticky top-8 z-10 bg-[#0f0f0f] pt-2 pb-4 -mx-4 px-4">
+        <div className="sticky top-0 z-10 bg-[#0f0f0f] pt-2 pb-4 -mx-4 px-4">
           <CategoryFilter selected={category} onChange={handleCategoryChange} />
           <SubFilter category={category} selected={subFilter} onChange={setSubFilter} />
         </div>

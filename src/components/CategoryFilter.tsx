@@ -2,6 +2,7 @@
 
 export type Category =
   | 'All'
+  | 'Breaking'
   | 'Football'
   | 'AI'
   | 'Science'
@@ -15,6 +16,7 @@ export type Category =
 
 export const CATEGORIES: Category[] = [
   'All',
+  'Breaking',
   'NYT',
   'Football',
   'Channels',

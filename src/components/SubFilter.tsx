@@ -46,13 +46,23 @@ const NYT_SECTIONS = [
   { label: 'Opinion',     value: 'Opinion' },
 ];
 
+const BREAKING_SOURCES = [
+  { label: 'BBC',        value: 'bbc' },
+  { label: 'Al Jazeera', value: 'aljazeera' },
+  { label: 'Guardian',   value: 'guardian' },
+  { label: 'NYT',        value: 'nyt' },
+  { label: 'Reuters',    value: 'reuters' },
+];
+
 const OPTIONS: Record<string, { label: string; value: string }[]> = {
+  Breaking: BREAKING_SOURCES,
   Football: FOOTBALL_CLUBS,
   Channels: NEWS_CHANNELS,
   NYT:      NYT_SECTIONS,
 };
 
 export function getDefaultSub(category: string): string {
+  if (category === 'Breaking') return 'bbc';
   if (category === 'Channels') return 'al-jazeera-english';
   if (category === 'NYT') return 'Home';
   return '';
