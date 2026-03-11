@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import CategoryFilter, { CATEGORIES, type Category } from '@/components/CategoryFilter';
 import ArticleCard, { type Article } from '@/components/ArticleCard';
 import SubFilter, { getDefaultSub } from '@/components/SubFilter';
+import LiveScores from '@/components/LiveScores';
 
 const DAILY_CAP = 20;
 const DISMISSED_KEY = 'readful_dismissed';
@@ -109,6 +110,9 @@ export default function Home() {
           <CategoryFilter selected={category} onChange={handleCategoryChange} />
           <SubFilter category={category} selected={subFilter} onChange={setSubFilter} />
         </div>
+
+        {/* Live scores — Football only */}
+        {category === 'Football' && <LiveScores />}
 
         {/* Feed */}
         {loading ? (
