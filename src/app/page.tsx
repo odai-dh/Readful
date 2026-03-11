@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import CategoryFilter, { CATEGORIES, type Category } from '@/components/CategoryFilter';
 import ArticleCard, { type Article } from '@/components/ArticleCard';
 import SubFilter, { getDefaultSub } from '@/components/SubFilter';
+import BreakingSection from '@/components/BreakingSection';
 
 const DAILY_CAP = 20;
 const DISMISSED_KEY = 'readful_dismissed';
@@ -108,6 +109,11 @@ export default function Home() {
         <div className="sticky top-0 z-10 bg-[#0f0f0f] pt-2 pb-4 -mx-4 px-4">
           <CategoryFilter selected={category} onChange={handleCategoryChange} />
           <SubFilter category={category} selected={subFilter} onChange={setSubFilter} />
+        </div>
+
+        {/* Breaking news */}
+        <div className="mt-4">
+          <BreakingSection />
         </div>
 
         {/* Feed */}
